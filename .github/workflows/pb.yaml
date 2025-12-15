@@ -39,6 +39,7 @@
         - name: dl packages
           run: |
             nu dl.nu dl
+
         - name: go build and release
           run: |
             OS_ARCH=${{ matrix.os_arch }}
@@ -51,13 +52,20 @@
             upx --best --lzma  unify-${GOOS}-${GOARCH} || true
             tar -czvf unify-${{matrix.os_arch}}.tgz unify-${{matrix.os_arch}}
 
+        - name: git checkout release branch 
+          run: | 
+            git checkout release-${{matrix.os_arch}} || git checkout -b release-${{matrix.os_arch}}
+            git pull origin release-${{matrix.os_arch}} || true
 
+            git add . || echo "no changes to add"
+            git commit -m "release-${{matrix.os_arch}} at ${{ steps.get-time.outputs.time }}" || echo "no changes to commit"
+            git push origin release-${{matrix.os_arch}}  || true
         - uses: "marvinpinto/action-automatic-releases@latest"
           name: "latest release"
           with:
             repo_token: "${{ secrets.HUB_TOKEN }}"
             prerelease: false # auto release to latest
-            automatic_release_tag: "latest"
-            title: "Latest Release-${{ steps.get-time.outputs.time }}"
+            automatic_release_tag: release-${{matrix.os_arch}}
+            title: "Latest Release-${{ steps.get-time.outputs.time }} release-${{matrix.os_arch}}"
             files: |
               unify-${{matrix.os_arch}}.tgz
