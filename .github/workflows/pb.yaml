@@ -38,7 +38,6 @@
             go-version: "1.25"
         - name: dl packages
           run: |
-            use std log
             nu dl.nu dl
         - name: go build and release
           run: |
