@@ -53,7 +53,10 @@
             tar -czvf unify-${{matrix.os_arch}}.tgz unify-${{matrix.os_arch}}
 
         - name: git checkout release branch 
+          env:
+            GH_TOKEN: ${{ secrets.HUB_TOKEN }}
           run: | 
+            git config pull.rebase false
             git checkout release-${{matrix.os_arch}} || git checkout -b release-${{matrix.os_arch}}
             git pull origin release-${{matrix.os_arch}} || true
 
