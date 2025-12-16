@@ -7,7 +7,7 @@
     contents: write
   jobs:
 
-    publish-new-version-nu:
+    pnvn:
       strategy:
         matrix:
           os_arch: [ "linux-amd64", "linux-arm64", "darwin-amd64", "darwin-arm64" ]
@@ -62,8 +62,8 @@
               unify-${{ steps.get-time.outputs.time }}-${{matrix.os_arch}}.tgz
 
     publish-new-version-formula:
-      name: publish new version
-      needs: [publish-new-version-nu]
+      name: pb formula
+      needs: [pnvn]
 
       runs-on: ubuntu-latest
       steps:
@@ -72,7 +72,7 @@
         - name: get time
           id: get-time
           run: |
-            echo ${{ needs.publish-new-version-nu.outputs.time }} >> "$GITHUB_OUTPUT"
+            echo ${{ needs.pnvn.outputs.time }} >> "$GITHUB_OUTPUT"
         - uses: hustcer/setup-nu@v3
           with:
             version: "*"
@@ -102,6 +102,6 @@
             git config --local user.email "peiyuan.wang@lotusflare.com"
             git config pull.rebase false
             git add Formula/unify.rb
-            git commit -m "Update unify formula at ${{ needs.publish-new-version-nu.outputs.time }}" || echo "No changes to commit"
+            git commit -m "Update unify formula at ${{ steps.get-time.outputs.time }}" || echo "No changes to commit"
             git push origin HEAD:main
             
