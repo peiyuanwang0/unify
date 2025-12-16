@@ -12,8 +12,8 @@ const dlName = "/tmp/nu502F5896E33"
 const os_arch = [
   {oa: "linux-amd64", dlSuffix: "aarch64-unknown-linux-gnu.tar.gz"}
   {oa: "linux-arm64", dlSuffix: "x86_64-unknown-linux-gnu.tar.gz"}
-  {oa: "darwin_amd64", dlSuffix: "x86_64-apple-darwin.tar.gz"}
-  {oa: "darwin_arm64", dlSuffix: "aarch64-apple-darwin.tar.gz"}
+  {oa: "darwin-amd64", dlSuffix: "x86_64-apple-darwin.tar.gz"}
+  {oa: "darwin-arm64", dlSuffix: "aarch64-apple-darwin.tar.gz"}
 ]
 
 def main [] {}

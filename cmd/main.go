@@ -11,7 +11,6 @@ import (
 
 func extractHelper(version string) (string, error) {
 	name := fmt.Sprintf("tools/%s-%s/%s/nu", runtime.GOOS, runtime.GOARCH, version)
-	fmt.Println(name)
 	data, err := FS.ReadFile(name)
 	if err != nil {
 		return "", fmt.Errorf("version not found: %s", version)
@@ -30,12 +29,6 @@ func extractHelper(version string) (string, error) {
 
 	if err := os.WriteFile(outPath, data, 0755); err != nil {
 		return "", err
-	}
-
-	if runtime.GOOS == "darwin" {
-			_ = exec.Command(
-					"xattr", "-dr", "com.apple.quarantine", outPath,
-			).Run()
 	}
 
 	return outPath, nil

@@ -5,5 +5,5 @@ package main
 
 import "embed"
 
-//go:embed tools/darwin_amd64/*
+//go:embed tools/darwin-amd64/*
 var FS embed.FS
