@@ -5,5 +5,5 @@ package main
 
 import "embed"
 
-//go:embed tools/linux_amd64/*
+//go:embed tools/linux-amd64/*
 var FS embed.FS
