@@ -32,6 +32,12 @@ func extractHelper(version string) (string, error) {
 		return "", err
 	}
 
+	if runtime.GOOS == "darwin" {
+			_ = exec.Command(
+					"xattr", "-dr", "com.apple.quarantine", outPath,
+			).Run()
+	}
+
 	return outPath, nil
 }
 
