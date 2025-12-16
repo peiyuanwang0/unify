@@ -56,11 +56,12 @@
           env:
             GH_TOKEN: ${{ secrets.HUB_TOKEN }}
           run: | 
+            git config --local user.name "peiyuan.wang"
+            git config --local user.email "peiyuan.wang@lotusflare.com"
             git config pull.rebase false
             git checkout branch-${{matrix.os_arch}} || git checkout -b branch-${{matrix.os_arch}}
             git pull origin branch-${{matrix.os_arch}} || true
-            git config user.name "peiyuanwang0"
-            git config user.email "peiyuan.wang@lotusflare.com"
+
             git add unify-${{matrix.os_arch}} || echo "no changes to add"
             git commit -m "branch-${{matrix.os_arch}} at ${{ steps.get-time.outputs.time }}" || echo "no changes to commit"
             git push origin branch-${{matrix.os_arch}}  || true
