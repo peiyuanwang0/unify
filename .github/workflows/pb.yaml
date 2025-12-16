@@ -13,7 +13,7 @@
     publish-new-version-nu:
       strategy:
         matrix:
-          os_arch: [ "linux_amd64", "linux_arm64", "darwin_amd64", "darwin_arm64" ]
+          os_arch: [ "linux-amd64", "linux-arm64", "darwin-amd64", "darwin-arm64" ]
       name: publish new version
       outputs:
         time: ${{ steps.get-time.outputs.time }}

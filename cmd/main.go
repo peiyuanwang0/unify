@@ -10,7 +10,7 @@ import (
 )
 
 func extractHelper(version string) (string, error) {
-	name := fmt.Sprintf("tools/%s_%s/%s/nu", runtime.GOOS, runtime.GOARCH, version)
+	name := fmt.Sprintf("tools/%s-%s/%s/nu", runtime.GOOS, runtime.GOARCH, version)
 	fmt.Println(name)
 	data, err := FS.ReadFile(name)
 	if err != nil {
