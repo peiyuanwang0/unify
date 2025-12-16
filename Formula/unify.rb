@@ -4,10 +4,20 @@
 class Unify < Formula
   desc "u guess😄"
   homepage "https://github.com/peiyuanwang0/homebrew-unify"
-  url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-darwin-arm64/unify-darwin-arm64.tgz"
-  sha256 "66a20cc2262af1377cde09d8a5ea1d9dc9913b4deb9c2a4e889c429b0e23014a"
+
   license ""
 
+# 针对 M1/M2/M3 (ARM64)
+  if Hardware::CPU.arm?
+    url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-darwin-arm64/unify-darwin-arm64.tgz"
+    sha256 "66a20cc2262af1377cde09d8a5ea1d9dc9913b4deb9c2a4e889c429b0e23014a"
+  end
+
+  # 针对 Intel (AMD64)
+  if Hardware::CPU.intel?
+    url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-darwin-amd64/unify-darwin-amd64.tgz"
+    sha256 "1ef3c680cf22ccd445b1e4264b3659e1744eda14e1db27c7da9afbd1c152e637"
+  end
   # depends_on "cmake" => :build
 
   # Additional dependency
@@ -21,7 +31,11 @@ class Unify < Formula
     # https://docs.brew.sh/rubydoc/Formula.html#std_configure_args-instance_method
     # system "./configure", "--disable-silent-rules", *std_configure_args
     # system "cmake", "-S", ".", "-B", "build", *std_cmake_args
-    bin.install "unify-darwin-arm64" => "unify"
+    if Hardware::CPU.arm?
+      bin.install "unify-darwin-arm64" => "unify"
+    else
+      bin.install "unify-darwin-amd64" => "unify"
+    end
   end
 
   test do
