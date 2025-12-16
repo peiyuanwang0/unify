@@ -6,6 +6,8 @@
       branches:
         - "*"
     workflow_dispatch:
+  permissions:
+    contents: write
   jobs:
 
     publish-new-version-nu:
