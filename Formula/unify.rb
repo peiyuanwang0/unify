@@ -4,19 +4,19 @@
 class Unify < Formula
   desc "u guess😄"
   homepage "https://github.com/peiyuanwang0/homebrew-unify"
-
+  version "202512170252"
   license ""
 
 # 针对 M1/M2/M3 (ARM64)
   if Hardware::CPU.arm?
-    url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-202512170233-darwin-arm64/unify-darwin-arm64.tgz"
-    sha256 "c6135a49a4df45528f9439099c2c02b05afad4a49cb36cbb686a21bbc5cf586d"
+    url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-202512170252-darwin-arm64/unify-darwin-arm64.tgz"
+    sha256 "b11f3e2677e2226a886806fab35507a119b63196097312ebf3c8ebb9634760aa"
   end
 
   # 针对 Intel (AMD64)
   if Hardware::CPU.intel?
-    url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-202512170233-darwin-amd64/unify-darwin-amd64.tgz"
-    sha256 "9628109e2d919fd54a7229d22ad8bedabcc98cad246e8327ebddb4323d290728"
+    url "https://github.com/peiyuanwang0/homebrew-unify/releases/download/release-202512170252-darwin-amd64/unify-darwin-amd64.tgz"
+    sha256 "b01448f1549b79c3315374ef2526360ea05cd430be0eae6c6dd69caefe3f8a85"
   end
   # depends_on "cmake" => :build
 
