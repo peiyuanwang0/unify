@@ -79,6 +79,12 @@
           run: |
             use std log
             let os_arch = [ "linux-amd64", "linux-arm64", "darwin-amd64", "darwin-arm64"]
+            mkdir Formula
+            let outputPath = "Formula/unify.rb"
+            rm -rf $outputPath
+
+            let templatePath = "templates/unify.rb.template"
+            mut templateValue = open $templatePath
             for osarch in $os_arch {
               if ($osarch | str contains "darwin") == false {
                 continue
@@ -86,13 +92,12 @@
               let url = $"/repos/peiyuanwang0/homebrew-unify/releases/tags/release-${{ needs.pnvn.outputs.time }}-($osarch)"
               log info $"url: ($url)"
               let sha256SumKey = (gh api   -H "Accept: application/vnd.github+json"   -H "X-GitHub-Api-Version: 2022-11-28"   $"/repos/peiyuanwang0/homebrew-unify/releases/tags/release-${{ needs.pnvn.outputs.time }}-($osarch)" | from json | get assets | get digest | get 0 | split row ":" | get 1)
-              log info "sha256SumKey: ($sha256SumKey)"
-              let templatePath = "templates/unify.rb.template"
-              mkdir Formula
-              let outputPath = "Formula/unify.rb"
-              open $templatePath | str replace -a "@@($osarch)-sha256@@" $sha256SumKey | save -f $outputPath
-              open $templatePath | str replace -a "@@($osarch)@@" ${{ needs.pnvn.outputs.time }} | save -f $outputPath
+              log info $"sha256SumKey: ($sha256SumKey)"
+              
+              $templateValue = ($templateValue | str replace -a $"@@($osarch)-sha256@@" $sha256SumKey )
+              $templateValue = ($templateValue | str replace -a $"@@($osarch)@@" ${{ needs.pnvn.outputs.time }})
             }
+            $templateValue | save -f $outputPath
 
         - name: Commit and push changes
           env: 
