@@ -4,7 +4,7 @@
 class Unify < Formula
   desc "u guess😄"
   homepage "https://github.com/peiyuanwang0/homebrew-unify"
-
+  version "@@dateversion@@"
   license ""
 
 # 针对 M1/M2/M3 (ARM64)

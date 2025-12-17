@@ -97,8 +97,8 @@
               $templateValue = ($templateValue | str replace -a $"@@($osarch)-sha256@@" $sha256SumKey )
               $templateValue = ($templateValue | str replace -a $"@@($osarch)@@" ${{ needs.pnvn.outputs.time }})
             }
+            $templateValue = ($templateValue | str replace -a "@@dateversion@@" ${{ needs.pnvn.outputs.time }})
             $templateValue | save -f $outputPath
-
         - name: Commit and push changes
           env: 
             GITHUB_TOKEN: ${{ secrets.HUB_TOKEN_PB }}
