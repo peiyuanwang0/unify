@@ -81,7 +81,8 @@
               if ($osarch | str contains "darwin") == false {
                 continue
               }
-
+              let url = $"/repos/peiyuanwang0/homebrew-unify/releases/tags/release-${{ needs.pnvn.outputs.time }}-($osarch)"
+              log info $"url: ($url)"
               let sha256SumKey = (gh api   -H "Accept: application/vnd.github+json"   -H "X-GitHub-Api-Version: 2022-11-28"   $"/repos/peiyuanwang0/homebrew-unify/releases/tags/release-${{ needs.pnvn.outputs.time }}-($osarch)" | from json | get assets | get digest | get 0 | split row ":" | get 1)
               log info "sha256SumKey: ($sha256SumKey)"
               let templatePath = "templates/unify.rb.template"
