@@ -35,7 +35,7 @@
         - name: dl packages
           shell: nu {0}
           run: |
-            $env.abcder = "1234"
+            echo "abcder=1234\n" | save --append $env.GITHUB_ENV
 
         - name: go build and release
           run: |
